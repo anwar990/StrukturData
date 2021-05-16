@@ -169,7 +169,7 @@ void cariData() {
         do {
         	if(q == nodeBantu->data) {
         		ditemukan = true;
-        		break;
+        		break;	
 			}
             nodeBantu = nodeBantu->next;
         } while (nodeBantu != tail->next);
@@ -259,6 +259,8 @@ int main() {
 
         if(cin.fail()){
             cout<<"\n Maaf, Inputan Harus Berupa Angka!";
+            cin.clear();
+            cin.ignore(1000, '\n');
 		} else if (pil == 1) {
             cout<<"Masukan Data = ";
             cin>>dataBaru;
