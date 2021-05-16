@@ -1,3 +1,8 @@
+// Simple Single Linked List Circular
+// Original by Pak Bintang Ginanjar -> https://github.com/bintangginanjar/Struktur-Data
+// Modified by Me
+// 1120031008 - Anwar Rifaldi
+
 #include <iostream>
 #include <stdlib.h>
 
@@ -11,8 +16,8 @@ struct TNode {
 TNode *head, *tail; // deklarasi variabel pointer head dan tail untuk menunjukkan head dan tail
 
 void init() {
-    head = NULL;
-    tail = NULL;
+    head = NULL; // 0 next 1
+    tail = NULL; // 5 next 0
 }
 
 int isEmpty() {
@@ -82,7 +87,7 @@ void hapusDepan() {
             head = NULL;
             tail = NULL;
         }
-        cout << "Data " << d << " terhapus" << endl;
+		cout << "Data " << d << " berhasil dihapus" << endl;
     } else {
         cout << "Linked List masih kosong\n";
     }
@@ -110,7 +115,7 @@ void hapusBelakang() {
             tail->next = head;
             delete nodeHapus;
         }
-        cout << "Data " << d << " terhapus" << endl;
+		cout << "Data " << d << " berhasil dihapus" << endl;
     } else {
         cout << "Linked List masih kosong\n";
     }
@@ -181,24 +186,74 @@ void cariData() {
 	
 }
 
+void hapusTertentu() {
+	int q;
+	bool ditemukan = false;
+	TNode *nodeHapus, *nodeBantu;
+    nodeHapus = head;
+
+    if (isEmpty() == 0) {
+	    cout<<"Masukan data yang ingin dihapus = ";
+	    cin>>q;
+    
+        do {
+        	if(q == nodeHapus->data) {
+        		ditemukan = true;
+        		break;
+			}
+            nodeHapus = nodeHapus->next;
+        } while (nodeHapus != tail->next);
+        
+        if(ditemukan) {
+        	if(nodeHapus == head) {
+        		hapusDepan();
+			} else if(nodeHapus == tail) {
+        		hapusBelakang();
+			} else {
+				if(head->next == nodeHapus) {
+					head->next = nodeHapus->next;
+				} else {
+					nodeBantu = head;
+					do {
+						nodeBantu = nodeBantu->next;
+					} while (nodeBantu->next != nodeHapus);
+					
+					nodeBantu->next = nodeHapus->next;
+				}
+				
+				delete nodeHapus;
+				cout << "Data " << q << " berhasil dihapus" << endl;
+			}
+		} else {
+			cout << "Data Tidak Ditemukan";
+		}
+    } else {
+        cout << "List masih kosong" << endl;
+    }
+	
+}
+
 int main() {
     int pil, dataBaru;
 
     do {	
         cout<<" \n"<<endl;
-        cout<<" ============================"<<endl;
-        cout<<" =   SLLC WITH HEAD & TAIL  ="<<endl;
-        cout<<" ============================"<<endl;
-        cout<<" = 1. Insert Depan          ="<<endl;
-        cout<<" = 2. Insert Belakang       ="<<endl;
-        cout<<" = 3. Hapus Depan           ="<<endl;
-        cout<<" = 4. Hapus Belakang        ="<<endl;
-        cout<<" = 5. Tampil Data           ="<<endl;
-        cout<<" = 6. Hapus semua Data      ="<<endl;
-        cout<<" = 7. Cari Data      	   ="<<endl;
-        cout<<" = 8. Hapus Data Tertentu   ="<<endl;
-        cout<<" = 9. Exit                  ="<<endl;
-        cout<<" ============================"<<endl;
+        cout<<" ======================================="<<endl;
+        cout<<" =         SLLC WITH HEAD & TAIL       ="<<endl;
+        cout<<" =   Original by Pak Bintang Ginanjar  ="<<endl;
+        cout<<" =            Modified by Me           ="<<endl;
+        cout<<" =      1120031008 - Anwar Rifaldi     ="<<endl;
+        cout<<" ======================================="<<endl;
+        cout<<" = 1. Insert Depan                     ="<<endl;
+        cout<<" = 2. Insert Belakang                  ="<<endl;
+        cout<<" = 3. Hapus Depan                      ="<<endl;
+        cout<<" = 4. Hapus Belakang                   ="<<endl;
+        cout<<" = 5. Tampil Data                      ="<<endl;
+        cout<<" = 6. Hapus semua Data                 ="<<endl;
+        cout<<" = 7. Cari Data                        ="<<endl;
+        cout<<" = 8. Hapus Data Tertentu              ="<<endl;
+        cout<<" = 9. Exit                             ="<<endl;
+        cout<<" ======================================="<<endl;
         cout<<" Masukan Pilihan : ";
         cin>>pil;
 
@@ -222,6 +277,8 @@ int main() {
             hapusSemua();
         } else if (pil == 7) {
             cariData();
+        } else if (pil == 8) {
+            hapusTertentu();
         } else if (pil != 9) {
             cout<<"\n Maaf, Pilihan yang anda pilih tidak tersedia!";
         }
